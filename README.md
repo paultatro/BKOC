@@ -2,6 +2,18 @@
 
 A ROM hacking toolkit for improving and randomizing the NES game "Bandit Kings of Ancient China" (Suikoden: Tenmei no Chikai).
 
+## 🚀 NEW? Start Here!
+
+**👉 [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md) - Complete step-by-step installation guide**
+
+**Or run the setup helper:**
+```bash
+cd /home/user/BKOC
+./setup_helper.sh
+```
+
+This will check your installation and guide you through the process!
+
 ## Features
 
 - **General Shuffle**: Randomize all generals' starting locations and affiliations
@@ -16,24 +28,33 @@ A ROM hacking toolkit for improving and randomizing the NES game "Bandit Kings o
 
 ## Setup
 
-### Requirements
+### For Beginners
 
-- Python 3.7+
-- Original NES ROM: `Bandit Kings of Ancient China (USA).nes`
-  - MD5: `a0c8f6e2d8b4c3e1f9a7b5c2d3e4f5a6` (verify your copy)
-  - Legally obtain from your own cartridge or authorized sources
+**📖 Read the complete guide:** [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md)
 
-### Installation
+**Or run the automatic setup helper:**
+```bash
+cd /home/user/BKOC
+./setup_helper.sh
+```
 
-1. Place your ROM file in this directory as `bandit_kings_original.nes`
+### Quick Setup (If You Know What You're Doing)
+
+1. Place your ROM file as `bandit_kings_original.nes` in this directory
 2. Install Python dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 3. Run the patcher:
    ```bash
-   python patch_rom.py
+   python3 patch_rom.py --preset balanced
    ```
+
+### Requirements
+
+- Python 3.7+
+- Original NES ROM: `Bandit Kings of Ancient China (USA).nes`
+  - Legally obtain from your own cartridge (see [ROM_ACQUISITION.md](ROM_ACQUISITION.md))
 
 ## Usage
 
