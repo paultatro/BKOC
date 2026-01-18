@@ -36,155 +36,183 @@ def apply_preset_chaos(rom_path: str, output_path: str, seed: int = None):
     """Apply CHAOS preset - maximum randomization"""
     print(f"\n{Fore.RED}[CHAOS MODE]{Style.RESET_ALL} Applying maximum randomization...\n")
 
-    rom = ROMHandler(rom_path)
+    try:
+        rom = ROMHandler(rom_path)
 
-    # Shuffle everything
-    shuffler = GeneralShuffler(rom, seed)
-    shuffler.shuffle_all_generals(preserve_groups=False)
-    shuffler.scatter_heroes(30)
+        # Shuffle everything
+        shuffler = GeneralShuffler(rom, seed)
+        shuffler.shuffle_all_generals(preserve_groups=False)
+        shuffler.scatter_heroes(30)
 
-    # Randomize stats heavily
-    randomizer = StatRandomizer(rom, seed)
-    randomizer.randomize_all_stats(variance=0.9)
-    randomizer.create_super_generals(10)
-    randomizer.randomize_abilities()
+        # Randomize stats heavily
+        randomizer = StatRandomizer(rom, seed)
+        randomizer.randomize_all_stats(variance=0.9)
+        randomizer.create_super_generals(10)
+        randomizer.randomize_abilities()
 
-    # Modify geography
-    geo = GeographyModifier(rom, seed)
-    geo.randomize_terrain()
-    geo.shuffle_city_importance()
-    geo.randomize_connections()
-    geo.create_rich_poor_divide()
+        # Modify geography
+        geo = GeographyModifier(rom, seed)
+        geo.randomize_terrain()
+        geo.shuffle_city_importance()
+        geo.randomize_connections()
+        geo.create_rich_poor_divide()
 
-    # Apply chaos difficulty
-    enhancements = GameEnhancements(rom, seed)
-    enhancements.apply_all_enhancements(difficulty='chaos')
+        # Apply chaos difficulty
+        enhancements = GameEnhancements(rom, seed)
+        enhancements.apply_all_enhancements(difficulty='chaos')
 
-    rom.save(output_path)
-    print(f"\n{Fore.GREEN}✓{Style.RESET_ALL} Chaos mode ROM saved to: {output_path}")
+        rom.save(output_path)
+        print(f"\n{Fore.GREEN}✓{Style.RESET_ALL} Chaos mode ROM saved to: {output_path}")
+    except (FileNotFoundError, PermissionError, IOError, ValueError, IndexError) as e:
+        print(f"\n{Fore.RED}✗ Error applying chaos preset:{Style.RESET_ALL} {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"\n{Fore.RED}✗ Unexpected error:{Style.RESET_ALL} {e}")
+        sys.exit(1)
 
 
 def apply_preset_balanced(rom_path: str, output_path: str, seed: int = None):
     """Apply BALANCED preset - moderate improvements"""
     print(f"\n{Fore.CYAN}[BALANCED MODE]{Style.RESET_ALL} Applying balanced enhancements...\n")
 
-    rom = ROMHandler(rom_path)
+    try:
+        rom = ROMHandler(rom_path)
 
-    # Balanced general distribution
-    shuffler = GeneralShuffler(rom, seed)
-    shuffler.balance_factions()
-    shuffler.scatter_heroes(15)
+        # Balanced general distribution
+        shuffler = GeneralShuffler(rom, seed)
+        shuffler.balance_factions()
+        shuffler.scatter_heroes(15)
 
-    # Moderate stat changes
-    randomizer = StatRandomizer(rom, seed)
-    randomizer.randomize_all_stats(variance=0.3)
-    randomizer.create_specialists()
-    randomizer.create_super_generals(5)
+        # Moderate stat changes
+        randomizer = StatRandomizer(rom, seed)
+        randomizer.randomize_all_stats(variance=0.3)
+        randomizer.create_specialists()
+        randomizer.create_super_generals(5)
 
-    # Strategic geography
-    geo = GeographyModifier(rom, seed)
-    geo.create_chokepoints(8)
-    geo.create_border_regions()
-    geo.balance_map_resources()
+        # Strategic geography
+        geo = GeographyModifier(rom, seed)
+        geo.create_chokepoints(8)
+        geo.create_border_regions()
+        geo.balance_map_resources()
 
-    # Balanced enhancements
-    enhancements = GameEnhancements(rom, seed)
-    enhancements.apply_all_enhancements(difficulty='normal')
+        # Balanced enhancements
+        enhancements = GameEnhancements(rom, seed)
+        enhancements.apply_all_enhancements(difficulty='normal')
 
-    rom.save(output_path)
-    print(f"\n{Fore.GREEN}✓{Style.RESET_ALL} Balanced ROM saved to: {output_path}")
+        rom.save(output_path)
+        print(f"\n{Fore.GREEN}✓{Style.RESET_ALL} Balanced ROM saved to: {output_path}")
+    except (FileNotFoundError, PermissionError, IOError, ValueError, IndexError) as e:
+        print(f"\n{Fore.RED}✗ Error applying balanced preset:{Style.RESET_ALL} {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"\n{Fore.RED}✗ Unexpected error:{Style.RESET_ALL} {e}")
+        sys.exit(1)
 
 
 def apply_preset_enhanced(rom_path: str, output_path: str, seed: int = None):
     """Apply ENHANCED preset - subtle improvements"""
     print(f"\n{Fore.GREEN}[ENHANCED MODE]{Style.RESET_ALL} Applying subtle enhancements...\n")
 
-    rom = ROMHandler(rom_path)
+    try:
+        rom = ROMHandler(rom_path)
 
-    # Minimal shuffling, preserve feel
-    shuffler = GeneralShuffler(rom, seed)
-    shuffler.scatter_heroes(10)
+        # Minimal shuffling, preserve feel
+        shuffler = GeneralShuffler(rom, seed)
+        shuffler.scatter_heroes(10)
 
-    # Light stat tweaks
-    randomizer = StatRandomizer(rom, seed)
-    randomizer.randomize_all_stats(variance=0.15)
-    randomizer.create_super_generals(3)
+        # Light stat tweaks
+        randomizer = StatRandomizer(rom, seed)
+        randomizer.randomize_all_stats(variance=0.15)
+        randomizer.create_super_generals(3)
 
-    # Minor geography changes
-    geo = GeographyModifier(rom, seed)
-    geo.create_chokepoints(5)
-    geo.balance_map_resources()
+        # Minor geography changes
+        geo = GeographyModifier(rom, seed)
+        geo.create_chokepoints(5)
+        geo.balance_map_resources()
 
-    # Conservative enhancements
-    enhancements = GameEnhancements(rom, seed)
-    enhancements.create_legendary_items()
-    enhancements.create_hidden_champions(5)
-    enhancements.create_trade_hubs(4)
+        # Conservative enhancements
+        enhancements = GameEnhancements(rom, seed)
+        enhancements.create_legendary_items()
+        enhancements.create_hidden_champions(5)
+        enhancements.create_trade_hubs(4)
 
-    rom.save(output_path)
-    print(f"\n{Fore.GREEN}✓{Style.RESET_ALL} Enhanced ROM saved to: {output_path}")
+        rom.save(output_path)
+        print(f"\n{Fore.GREEN}✓{Style.RESET_ALL} Enhanced ROM saved to: {output_path}")
+    except (FileNotFoundError, PermissionError, IOError, ValueError, IndexError) as e:
+        print(f"\n{Fore.RED}✗ Error applying enhanced preset:{Style.RESET_ALL} {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"\n{Fore.RED}✗ Unexpected error:{Style.RESET_ALL} {e}")
+        sys.exit(1)
 
 
 def apply_custom(args):
     """Apply custom modifications based on flags"""
     print(f"\n{Fore.MAGENTA}[CUSTOM MODE]{Style.RESET_ALL} Applying custom modifications...\n")
 
-    rom = ROMHandler(args.input)
-    seed = args.seed
+    try:
+        rom = ROMHandler(args.input)
+        seed = args.seed
 
-    # Shuffle generals
-    if args.shuffle_generals:
-        print(f"{Fore.YELLOW}→{Style.RESET_ALL} Shuffling generals...")
-        shuffler = GeneralShuffler(rom, seed)
+        # Shuffle generals
+        if args.shuffle_generals:
+            print(f"{Fore.YELLOW}→{Style.RESET_ALL} Shuffling generals...")
+            shuffler = GeneralShuffler(rom, seed)
 
-        if args.preserve_groups:
-            shuffler.shuffle_all_generals(preserve_groups=True)
-        else:
-            shuffler.shuffle_all_generals(preserve_groups=False)
+            if args.preserve_groups:
+                shuffler.shuffle_all_generals(preserve_groups=True)
+            else:
+                shuffler.shuffle_all_generals(preserve_groups=False)
 
-        if args.wanderers:
-            shuffler.scatter_heroes(args.wanderers)
+            if args.wanderers:
+                shuffler.scatter_heroes(args.wanderers)
 
-    # Randomize stats
-    if args.randomize_stats:
-        print(f"{Fore.YELLOW}→{Style.RESET_ALL} Randomizing stats...")
-        randomizer = StatRandomizer(rom, seed)
-        randomizer.randomize_all_stats(variance=args.stat_variance)
+        # Randomize stats
+        if args.randomize_stats:
+            print(f"{Fore.YELLOW}→{Style.RESET_ALL} Randomizing stats...")
+            randomizer = StatRandomizer(rom, seed)
+            randomizer.randomize_all_stats(variance=args.stat_variance)
 
-        if args.create_specialists:
-            randomizer.create_specialists()
+            if args.create_specialists:
+                randomizer.create_specialists()
 
-        if args.super_generals > 0:
-            randomizer.create_super_generals(args.super_generals)
+            if args.super_generals > 0:
+                randomizer.create_super_generals(args.super_generals)
 
-        if args.randomize_abilities:
-            randomizer.randomize_abilities()
+            if args.randomize_abilities:
+                randomizer.randomize_abilities()
 
-    # Modify geography
-    if args.modify_geography:
-        print(f"{Fore.YELLOW}→{Style.RESET_ALL} Modifying geography...")
-        geo = GeographyModifier(rom, seed)
+        # Modify geography
+        if args.modify_geography:
+            print(f"{Fore.YELLOW}→{Style.RESET_ALL} Modifying geography...")
+            geo = GeographyModifier(rom, seed)
 
-        if args.randomize_terrain:
-            geo.randomize_terrain()
+            if args.randomize_terrain:
+                geo.randomize_terrain()
 
-        if args.shuffle_cities:
-            geo.shuffle_city_importance()
+            if args.shuffle_cities:
+                geo.shuffle_city_importance()
 
-        if args.chokepoints > 0:
-            geo.create_chokepoints(args.chokepoints)
+            if args.chokepoints > 0:
+                geo.create_chokepoints(args.chokepoints)
 
-        if args.randomize_connections:
-            geo.randomize_connections()
+            if args.randomize_connections:
+                geo.randomize_connections()
 
-    # Apply enhancements
-    if args.enhancements:
-        print(f"{Fore.YELLOW}→{Style.RESET_ALL} Applying enhancements...")
-        enhancements = GameEnhancements(rom, seed)
-        enhancements.apply_all_enhancements(difficulty=args.difficulty)
+        # Apply enhancements
+        if args.enhancements:
+            print(f"{Fore.YELLOW}→{Style.RESET_ALL} Applying enhancements...")
+            enhancements = GameEnhancements(rom, seed)
+            enhancements.apply_all_enhancements(difficulty=args.difficulty)
 
-    rom.save(args.output)
-    print(f"\n{Fore.GREEN}✓{Style.RESET_ALL} Custom ROM saved to: {args.output}")
+        rom.save(args.output)
+        print(f"\n{Fore.GREEN}✓{Style.RESET_ALL} Custom ROM saved to: {args.output}")
+    except (FileNotFoundError, PermissionError, IOError, ValueError, IndexError) as e:
+        print(f"\n{Fore.RED}✗ Error applying custom modifications:{Style.RESET_ALL} {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"\n{Fore.RED}✗ Unexpected error:{Style.RESET_ALL} {e}")
+        sys.exit(1)
 
 
 def main():

@@ -23,6 +23,10 @@ class StatRandomizer:
         Args:
             variance: How much to vary from original (0.0 = no change, 1.0 = completely random)
         """
+        # Validate input
+        if not 0.0 <= variance <= 1.0:
+            raise ValueError(f"variance must be between 0.0 and 1.0, got {variance}")
+
         print(f"Randomizing all general stats (variance: {variance})...")
 
         for gen_id in range(self.rom.TOTAL_GENERALS):
@@ -73,6 +77,12 @@ class StatRandomizer:
         Args:
             count: Number of super generals to create
         """
+        # Validate input
+        if count < 0:
+            raise ValueError(f"count must be non-negative, got {count}")
+        if count > self.rom.TOTAL_GENERALS:
+            raise ValueError(f"count ({count}) cannot exceed total generals ({self.rom.TOTAL_GENERALS})")
+
         print(f"Creating {count} super generals...")
 
         generals = list(range(self.rom.TOTAL_GENERALS))
@@ -128,6 +138,10 @@ class StatRandomizer:
         Args:
             target_total: Target sum of all four main stats
         """
+        # Validate input - target_total should be reasonable (4-396 for 4 stats with range 1-99)
+        if not 4 <= target_total <= 396:
+            raise ValueError(f"target_total must be between 4 and 396, got {target_total}")
+
         print(f"Balancing generals to {target_total} total stat points...")
 
         for gen_id in range(self.rom.TOTAL_GENERALS):
@@ -242,11 +256,12 @@ class StatRandomizer:
             }
         elif archetype == 'balanced':
             base = random.randint(45, 60)
+            # Ensure all values stay in 1-99 range by clamping
             return {
-                'leadership': base + random.randint(-10, 10),
-                'intelligence': base + random.randint(-10, 10),
-                'strength': base + random.randint(-10, 10),
-                'luck': base + random.randint(-10, 10),
+                'leadership': max(1, min(99, base + random.randint(-10, 10))),
+                'intelligence': max(1, min(99, base + random.randint(-10, 10))),
+                'strength': max(1, min(99, base + random.randint(-10, 10))),
+                'luck': max(1, min(99, base + random.randint(-10, 10))),
             }
         else:  # unstable
             return {

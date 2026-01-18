@@ -29,33 +29,69 @@ class ROMHandler:
         if not os.path.exists(rom_path):
             raise FileNotFoundError(f"ROM file not found: {rom_path}")
 
-        with open(rom_path, 'rb') as f:
-            self.rom_data = bytearray(f.read())
+        try:
+            with open(rom_path, 'rb') as f:
+                self.rom_data = bytearray(f.read())
+        except PermissionError:
+            raise PermissionError(f"Permission denied reading ROM file: {rom_path}")
+        except IOError as e:
+            raise IOError(f"Failed to read ROM file: {rom_path}. Error: {e}")
 
         self.original_size = len(self.rom_data)
+
+        # Validate ROM size is reasonable (at least 32KB, typical NES ROM size)
+        if len(self.rom_data) < 32768:
+            raise ValueError(f"ROM file appears to be invalid (too small: {len(self.rom_data)} bytes)")
+
         print(f"Loaded ROM: {len(self.rom_data)} bytes")
 
     def save(self, output_path: str):
         """Save modified ROM to file"""
-        with open(output_path, 'wb') as f:
-            f.write(self.rom_data)
+        try:
+            with open(output_path, 'wb') as f:
+                f.write(self.rom_data)
+        except PermissionError:
+            raise PermissionError(f"Permission denied writing to: {output_path}")
+        except IOError as e:
+            raise IOError(f"Failed to write ROM file: {output_path}. Error: {e}. Check disk space and permissions.")
+        except Exception as e:
+            raise Exception(f"Unexpected error saving ROM to {output_path}: {e}")
+
         print(f"Saved modified ROM to: {output_path}")
 
     def read_byte(self, offset: int) -> int:
         """Read single byte from ROM"""
+        if offset < 0 or offset >= len(self.rom_data):
+            raise IndexError(f"Invalid ROM offset: {offset} (ROM size: {len(self.rom_data)} bytes)")
         return self.rom_data[offset]
 
     def write_byte(self, offset: int, value: int):
         """Write single byte to ROM"""
+        if offset < 0 or offset >= len(self.rom_data):
+            raise IndexError(f"Invalid ROM offset: {offset} (ROM size: {len(self.rom_data)} bytes)")
+        if not isinstance(value, int) or value < 0 or value > 255:
+            raise ValueError(f"Invalid byte value: {value}. Must be 0-255.")
         self.rom_data[offset] = value & 0xFF
 
     def read_word(self, offset: int) -> int:
         """Read 2-byte word (little-endian) from ROM"""
-        return struct.unpack_from('<H', self.rom_data, offset)[0]
+        if offset < 0 or offset + 1 >= len(self.rom_data):
+            raise IndexError(f"Invalid ROM offset for word read: {offset} (ROM size: {len(self.rom_data)} bytes)")
+        try:
+            return struct.unpack_from('<H', self.rom_data, offset)[0]
+        except struct.error as e:
+            raise ValueError(f"Failed to unpack word at offset {offset}: {e}")
 
     def write_word(self, offset: int, value: int):
         """Write 2-byte word (little-endian) to ROM"""
-        struct.pack_into('<H', self.rom_data, offset, value & 0xFFFF)
+        if offset < 0 or offset + 1 >= len(self.rom_data):
+            raise IndexError(f"Invalid ROM offset for word write: {offset} (ROM size: {len(self.rom_data)} bytes)")
+        if not isinstance(value, int) or value < 0 or value > 65535:
+            raise ValueError(f"Invalid word value: {value}. Must be 0-65535.")
+        try:
+            struct.pack_into('<H', self.rom_data, offset, value & 0xFFFF)
+        except struct.error as e:
+            raise ValueError(f"Failed to pack word at offset {offset}: {e}")
 
     def get_general_offset(self, general_id: int) -> int:
         """Get ROM offset for a specific general's data"""
@@ -93,6 +129,21 @@ class ROMHandler:
     def write_general(self, general_id: int, data: Dict):
         """Write all data for a general"""
         offset = self.get_general_offset(general_id)
+
+        # Validate data before writing
+        if not isinstance(data, dict):
+            raise TypeError(f"General data must be a dictionary, got {type(data)}")
+
+        # Validate stat values (leadership, intelligence, strength, luck) are 0-99
+        stat_fields = ['leadership', 'intelligence', 'strength', 'luck', 'loyalty',
+                       'recruitment_difficulty', 'defense', 'population']
+        for field in stat_fields:
+            if field in data and (data[field] < 0 or data[field] > 99):
+                raise ValueError(f"Invalid {field} value: {data[field]}. Must be 0-99.")
+
+        # Validate starting_city is within valid range
+        if 'starting_city' in data and not (0 <= data['starting_city'] < self.TOTAL_CITIES or data['starting_city'] == 0xFF):
+            raise ValueError(f"Invalid starting_city: {data['starting_city']}. Must be 0-{self.TOTAL_CITIES-1} or 255 (none).")
 
         if 'id' in data:
             self.write_byte(offset + 0x00, data['id'])
@@ -151,6 +202,22 @@ class ROMHandler:
     def write_city(self, city_id: int, data: Dict):
         """Write all data for a city"""
         offset = self.get_city_offset(city_id)
+
+        # Validate data before writing
+        if not isinstance(data, dict):
+            raise TypeError(f"City data must be a dictionary, got {type(data)}")
+
+        # Validate connected_cities
+        if 'connected_cities' in data:
+            if not isinstance(data['connected_cities'], (list, tuple)):
+                raise TypeError(f"connected_cities must be a list or tuple, got {type(data['connected_cities'])}")
+            for i, city in enumerate(data['connected_cities']):
+                if not (0 <= city < self.TOTAL_CITIES or city == 0xFF):
+                    raise ValueError(f"Invalid connected city at index {i}: {city}. Must be 0-{self.TOTAL_CITIES-1} or 255 (none).")
+
+        # Validate governor is a valid general ID
+        if 'governor' in data and not (0 <= data['governor'] < self.TOTAL_GENERALS or data['governor'] == 0xFF):
+            raise ValueError(f"Invalid governor: {data['governor']}. Must be 0-{self.TOTAL_GENERALS-1} or 255 (none).")
 
         if 'size' in data:
             self.write_byte(offset + 0x01, data['size'])

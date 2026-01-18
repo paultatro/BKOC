@@ -113,6 +113,14 @@ class GeneralShuffler:
         """
         Create one mega-faction with many generals for extra challenge
         """
+        # Validate inputs
+        if not 0 <= faction_id <= 15:
+            raise ValueError(f"faction_id must be 0-15, got {faction_id}")
+        if num_generals < 0:
+            raise ValueError(f"num_generals must be non-negative, got {num_generals}")
+        if num_generals > self.rom.TOTAL_GENERALS:
+            raise ValueError(f"num_generals ({num_generals}) cannot exceed total generals ({self.rom.TOTAL_GENERALS})")
+
         print(f"Creating mega-faction {faction_id} with {num_generals} generals...")
 
         generals = list(range(self.rom.TOTAL_GENERALS))
@@ -123,7 +131,7 @@ class GeneralShuffler:
             gen_id = generals[i]
             self.rom.write_general(gen_id, {
                 'affiliation': faction_id,
-                'loyalty': random.randint(80, 100)  # High loyalty
+                'loyalty': min(99, random.randint(80, 100))  # High loyalty, capped at 99
             })
 
     def scatter_heroes(self, num_wanderers: int = 20):
@@ -131,6 +139,12 @@ class GeneralShuffler:
         Make some generals start as wanderers (no affiliation)
         Creates recruitment opportunities
         """
+        # Validate input
+        if num_wanderers < 0:
+            raise ValueError(f"num_wanderers must be non-negative, got {num_wanderers}")
+        if num_wanderers > self.rom.TOTAL_GENERALS:
+            raise ValueError(f"num_wanderers ({num_wanderers}) cannot exceed total generals ({self.rom.TOTAL_GENERALS})")
+
         print(f"Creating {num_wanderers} wandering heroes...")
 
         generals = list(range(self.rom.TOTAL_GENERALS))
@@ -139,7 +153,8 @@ class GeneralShuffler:
         # Make them wanderers (affiliation 0xFF typically means unaffiliated)
         for i in range(min(num_wanderers, len(generals))):
             gen_id = generals[i]
-            city = random.randint(0, self.rom.TOTAL_CITIES - 1)
+            # Ensure city is within valid range
+            city = random.randint(0, max(0, self.rom.TOTAL_CITIES - 1))
 
             self.rom.write_general(gen_id, {
                 'affiliation': 0xFF,
@@ -155,6 +170,11 @@ class GeneralShuffler:
         print("Balancing generals across factions...")
 
         num_factions = 8  # Use 8 main factions
+
+        # Validate we have enough generals
+        if self.rom.TOTAL_GENERALS < num_factions:
+            raise ValueError(f"Not enough generals ({self.rom.TOTAL_GENERALS}) for {num_factions} factions")
+
         generals_per_faction = self.rom.TOTAL_GENERALS // num_factions
 
         generals = list(range(self.rom.TOTAL_GENERALS))
@@ -167,7 +187,8 @@ class GeneralShuffler:
                 end = len(generals)  # Last faction gets remainder
 
             for gen_id in generals[start:end]:
-                city = random.randint(0, self.rom.TOTAL_CITIES - 1)
+                # Ensure city is within valid range
+                city = random.randint(0, max(0, self.rom.TOTAL_CITIES - 1))
                 self.rom.write_general(gen_id, {
                     'affiliation': faction,
                     'starting_city': city
