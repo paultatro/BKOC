@@ -48,3 +48,6 @@ Thumbs.db
 *.bak
 *.backup
 *_backup.nes
+
+# Build outputs
+*.spoiler.txt

@@ -1,125 +1,48 @@
-# Bandit Kings of Ancient China - Enhanced Edition
+# Bandit Kings of Ancient China — Shuffle Edition
 
-A ROM hacking toolkit for improving and randomizing the NES game "Bandit Kings of Ancient China" (Suikoden: Tenmei no Chikai).
+A seeded randomizer and fix pack for the NES game *Bandit Kings of Ancient China* (KOEI, 1990).
+It only edits data tables that have been verified in the ROM, writes every change in place, and
+never shifts a byte. See [docs/CHANGES.md](docs/CHANGES.md) for exactly what is changed and why.
 
-## 🚀 NEW? Start Here!
+New to this? Read [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md).
 
-**👉 [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md) - Complete step-by-step installation guide**
+## What it does
 
-**Or run the setup helper:**
-```bash
-cd /home/user/BKOC
-./setup_helper.sh
-```
+| Feature | Default | Notes |
+|---|---|---|
+| Nickname fixes | always | "She-devil" → "Jade Amazon", duplicate "Winged Tiger" fixed, three translation fixes |
+| Stat shuffle | on | Swaps whole stat blocks between characters of similar power (tiers of 16) |
+| Chaos stat shuffle | `--chaos` | Swaps stat blocks across everyone, so any character can be a powerhouse |
+| New generals | 8 | Replaces the weakest non-story filler characters with new named generals that have mid-level stats |
+| Gao Qiu power | `classic` | `--gaoqiu stronger` / `weaker` (experimental: the effect hasn't been confirmed in-game) |
 
-This will check your installation and guide you through the process!
-
-## Features
-
-- **General Shuffle**: Randomize all generals' starting locations and affiliations
-- **Stat Randomization**: Rebalance and randomize general statistics for varied gameplay
-- **Geography Modification**: Alter terrain, cities, and resource distributions
-- **Resource Rebalancing**: Adjust gold, rice, soldiers, and weapons across the map
-- **Innovative Enhancements**:
-  - Balanced difficulty modes
-  - Hidden character stat boosts
-  - Enhanced AI behavior patterns
-  - Dynamic resource scaling
-
-## Setup
-
-### For Beginners
-
-**📖 Read the complete guide:** [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md)
-
-**Or run the automatic setup helper:**
-```bash
-cd /home/user/BKOC
-./setup_helper.sh
-```
-
-### Quick Setup (If You Know What You're Doing)
-
-1. Place your ROM file as `bandit_kings_original.nes` in this directory
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Run the patcher:
-   ```bash
-   python3 patch_rom.py --preset balanced
-   ```
-
-### Requirements
-
-- Python 3.7+
-- Original NES ROM: `Bandit Kings of Ancient China (USA).nes`
-  - Legally obtain from your own cartridge (see [ROM_ACQUISITION.md](ROM_ACQUISITION.md))
+Never touched: the map, province connections, story text, ID/flag bytes, Gao Qiu's and Lan's
+identities, and named story characters.
 
 ## Usage
 
-### Quick Patch
+Requires Python 3.8+ (standard library only) and the canonical ROM
+`Bandit Kings of Ancient China (U).nes` (393,232 bytes, MD5 `5ef1ba9461974f34b0633eaf063490dd`).
+
 ```bash
-python patch_rom.py --preset balanced
+python3 bkoc_shuffle.py "Bandit Kings of Ancient China (U).nes" my_game.nes --seed 1101
+python3 bkoc_shuffle.py rom.nes chaos.nes --chaos --new-generals 20 --gaoqiu stronger
+python3 bkoc_shuffle.py rom.nes fixes_only.nes --no-stats --new-generals 0
 ```
 
-### Custom Options
+Each build also writes `<output>.spoiler.txt`, which lists every change. The same seed and
+options always produce the same ROM.
+
+## Tests
+
 ```bash
-python patch_rom.py \
-  --shuffle-generals \
-  --randomize-stats \
-  --modify-geography \
-  --rebalance-resources \
-  --difficulty hard \
-  --output bandit_kings_enhanced.nes
+BKOC_ROM="Bandit Kings of Ancient China (U).nes" python3 -m unittest discover tests
 ```
 
-### Available Presets
-- `chaos`: Maximum randomization, wild stat variations
-- `balanced`: Moderate changes, improved balance
-- `enhanced`: Subtle improvements, original feel
-- `custom`: Use individual flags
+## Not done yet
 
-## Modifications
+Shuffling starting provinces and province gold/food/troops needs the scenario setup tables.
+They aren't in the character or province tables, and finding them safely needs an
+emulator's RAM search. See "Next steps" in docs/CHANGES.md.
 
-### General Shuffle
-- Randomizes starting positions of all 108 generals
-- Maintains some historical character groupings (optional)
-- Ensures game remains winnable
-
-### Stat Randomization
-- Intelligence (INT)
-- Leadership (LDR)
-- Strength (STR)
-- Luck (LCK)
-- Weapon proficiency
-- Special abilities
-
-### Geography Changes
-- Terrain type variations
-- City size and importance adjustments
-- Travel route modifications
-- Strategic chokepoint rebalancing
-
-### Resource Modifications
-- Starting resources for all forces
-- City production rates
-- Market prices and availability
-- Hidden treasure locations
-
-## ROM Structure Documentation
-
-See `docs/rom_structure.md` for detailed memory mapping and data structures.
-
-## Safety
-
-All modifications create a new ROM file - your original is never modified.
-
-## Legal
-
-This toolkit is for educational purposes and personal use only. You must own a legal copy of the game to use these tools.
-
-## Credits
-
-- Original game: KOEI (1989)
-- ROM hacking tools and documentation: BKOC Enhancement Project
+ROMs are not included or committed; bring your own legally owned copy.
