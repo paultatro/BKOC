@@ -71,6 +71,8 @@ local function ranked_writes()
   return rows
 end
 
+local cached_rows = {}
+
 local function draw()
   safe_draw_rectangle(0, 0, 256, 26 + CONFIG.max_rows * 8, 0x7F000000, true)
   safe_draw_string(4, 4, "Bandit Kings Write Trace: " .. CONFIG.label, 0xFFFFFF, 0x000000)
@@ -80,7 +82,7 @@ local function draw()
   end
   safe_draw_string(4, 14, "Perform exactly one action, then stop", 0xFFFF66, 0x000000)
 
-  local rows = ranked_writes()
+  local rows = cached_rows
   for i = 1, math.min(CONFIG.max_rows, #rows) do
     local row = rows[i]
     local text = string.format("%s <= %02X x%d", hex(row.addr), row.entry.value, row.entry.count)
@@ -105,7 +107,9 @@ end
 
 local function tick()
   frame = frame + 1
-  if frame % 10 == 0 then draw() end
+  -- Mesen drawings last one frame: draw every frame, re-rank every 10th.
+  if frame % 10 == 0 then cached_rows = ranked_writes() end
+  draw()
 end
 
 local function write_callback(addr, value)

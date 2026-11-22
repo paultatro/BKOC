@@ -1,3 +1,18 @@
+# Release 0.4 — Reborn merged with Shuffle Edition
+
+Released November 22, 2026. Built on 0.3, which was imported unchanged and matched its own SHA-256 list.
+
+## New in 0.4
+- One kit: the Lua director (this folder) now ships with the Shuffle Edition ROM builder (`bkoc_shuffle.py`). See `START-HERE.md` at the top of the kit.
+- Fix: a warned crisis that could not change anything, such as unrest at popularity 0, used up the only monthly slot. With `max_events_per_month = 1` the paid policy then never ran again. The policy now uses the slot whenever the crisis delivers nothing.
+- Fix: a mapped rival-ownership table was ignored unless `player_owner` was also mapped. With `require_enemy_ownership = false`, neutral rows could then be boosted. A mapped owner table is now always honored, and the player check is added when `player_owner` is mapped.
+- Fix: Memory Scout, Write Trace and Address Lab drew their panel only one frame in ten, so it flickered or barely showed. They now draw every frame and re-rank only every tenth frame. The Scout panel is taller, so its fourth row is no longer clipped.
+- The test suite has 74 checks under Lua 5.1 and 5.4 (68 before, plus 3 regression checks run under both versions). Each new check fails on the 0.3 code.
+- `CHECKSUMS.md` is now generated for the whole kit by `make_kit.py`. The 0.3 checksum list and manifest were removed.
+
+## Unchanged limits
+The live RAM map is still empty, so live mode needs calibration (see the Runbook). Mesen 2 support is tested only through API mocks, and full campaign balance hasn't been tested.
+
 # Release 0.3 — Council and Chronicle
 
 Released November 4, 2026, from the October 4 Bandit Kings Reborn maintenance build.

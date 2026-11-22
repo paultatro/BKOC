@@ -1,4 +1,4 @@
-# Configuration profiles — 0.3
+# Configuration profiles — 0.4
 
 Keep the default `dry_run=true` until the live map is verified. A profile does not supply game addresses.
 

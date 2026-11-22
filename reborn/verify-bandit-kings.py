@@ -185,6 +185,19 @@ class DirectorTests(unittest.TestCase):
                     if lua.globals().callbacks[3]: lua.globals().callbacks[3]()
                 if lua.globals().callbacks[10]: lua.globals().callbacks[10]()
 
+    def test_helper_overlays_draw_every_frame(self):
+        # 0.4 fix: one-frame Mesen drawings must be reissued every frame, not every 10th.
+        for name in ("bandit-kings-memory-scout.lua", "bandit-kings-write-trace.lua",
+                     "bandit-kings-address-lab.lua"):
+            lua = self.runtime(unpack_returned_tuples=True)
+            lua.execute(MOCK)
+            lua.execute((ROOT / name).read_text(encoding="utf-8"))
+            tick = lua.globals().callbacks[3]
+            for frame in range(1, 13):
+                before = len(lua.globals().drawings)
+                tick()
+                self.assertGreater(len(lua.globals().drawings), before, f"{name} frame {frame}")
+
     def test_long_self_test_and_no_real_writes(self):
         lua = self.runtime(unpack_returned_tuples=True)
         lua.execute(MOCK)
@@ -416,6 +429,31 @@ class DirectorTests(unittest.TestCase):
         before = self.mem[261]
         self.api.shock('bad_omens')
         self.assertEqual(before - self.mem[261], 1)
+
+    def test_unresolvable_crisis_does_not_starve_policy(self):
+        # 0.4 fix: unrest at popularity 0 can never land; drill must keep running.
+        a = self.cfg.addresses
+        a.month, a.player_gold, a.player_training, a.player_popularity = 256, 257, 258, 259
+        self.mem[256], self.mem[257], self.mem[258], self.mem[259] = 1, 200, 10, 0
+        self.cfg.dry_run = False
+        self.cfg.max_events_per_month = 1
+        self.select('drill')
+        for _ in range(30):
+            self.api.month()
+        self.assertGreaterEqual(self.mem[258], 50)
+
+    def test_owner_table_honored_without_player_owner(self):
+        # 0.4 fix: a mapped owner table excludes neutral rows even without player_owner.
+        self.cfg.require_enemy_ownership = False
+        self.cfg.dry_run = False
+        a = self.cfg.addresses
+        a.enemy_owner_start, a.enemy_owner_count, a.enemy_owner_stride = 600, 2, 1
+        a.enemy_gold_start, a.enemy_gold_count = 512, 2
+        self.mem[600], self.mem[601] = 255, 2
+        self.mem[512], self.mem[513] = 40, 40
+        self.api.economy()
+        self.assertEqual(self.mem[512], 40)
+        self.assertGreater(self.mem[513], 40)
 
     def test_demo_is_generated_from_current_director(self):
         expected = SOURCE.replace('  self_test = false,','  self_test = true,',1).replace('  nemesis_rivals = false,','  nemesis_rivals = true,',1)

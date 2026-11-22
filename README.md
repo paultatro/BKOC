@@ -4,6 +4,10 @@ A seeded randomizer and fix pack for the NES game *Bandit Kings of Ancient China
 It only edits data tables that have been verified in the ROM, writes every change in place, and
 never shifts a byte. See [docs/CHANGES.md](docs/CHANGES.md) for exactly what is changed and why.
 
+This repository is also **Bandit Kings Reborn 0.4**: the ROM shuffler here plus the Reborn
+campaign-director Lua overlay for Mesen in [`reborn/`](reborn/). Start with [START-HERE.md](START-HERE.md).
+To build the kit zip, run `python3 make_kit.py`.
+
 New to this? Read [BEGINNER_GUIDE.md](BEGINNER_GUIDE.md).
 
 ## What it does

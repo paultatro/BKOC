@@ -1,4 +1,4 @@
-# Bandit Kings Reborn 0.3 — Council and Chronicle
+# Bandit Kings Reborn 0.4 — Council and Chronicle
 
 November 4, 2026. An improved Mesen Lua director for Bandit Kings of Ancient China.
 
@@ -46,6 +46,6 @@ The kit does not yet provide verified live campaign integration, officer persona
 
 ## Verification
 
-68 regression checks passed under Lua 5.1 and Lua 5.4. Mesen 0.9.8 ran the demo with the user's game for 2,400 frames / 19 simulated months with zero Lua RAM-write calls and zero text-drawing errors. Captured screens were visually inspected. Mesen 2 API shapes are covered by mocks; a Mesen 2 executable was not tested.
+74 regression checks pass under Lua 5.1 and Lua 5.4 (0.4). The Mesen 0.9.8 smoke test below was run on 0.3 and hasn't been repeated for 0.4. 0.4 changes only crisis/policy slot handling, the owner guard and helper drawing, all covered by the new checks. Mesen 0.9.8 ran the 0.3 demo with the user's game for 2,400 frames / 19 simulated months with zero Lua RAM-write calls and zero text-drawing errors. Captured screens were visually inspected. Mesen 2 API shapes are covered by mocks; a Mesen 2 executable was not tested.
 
 See `Bandit-Kings-Reborn-Review.md` for findings, evidence, and remaining work.

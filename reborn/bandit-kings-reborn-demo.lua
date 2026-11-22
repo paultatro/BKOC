@@ -304,12 +304,16 @@ end
 -- This guard is evaluated for EVERY affected row, not just when a nemesis rises.
 local function enemy_eligible(index)
   local a = CONFIG.addresses
-  if a.player_owner and a.enemy_owner_start then
+  -- A mapped owner table is always honored, even without player_owner.
+  if a.enemy_owner_start then
     if index > a.enemy_owner_count then return false end
     local owner = read_byte(a.enemy_owner_start + (index - 1) * a.enemy_owner_stride)
-    local player = read_byte(a.player_owner)
-    return owner ~= nil and player ~= nil and owner ~= player and
-      not in_list(owner, CONFIG.neutral_owner_values)
+    if owner == nil or in_list(owner, CONFIG.neutral_owner_values) then return false end
+    if a.player_owner then
+      local player = read_byte(a.player_owner)
+      return player ~= nil and owner ~= player
+    end
+    return not CONFIG.require_enemy_ownership
   end
   return not CONFIG.require_enemy_ownership
 end
@@ -807,8 +811,10 @@ local function new_month()
   if recovering then deliver("recovery", comeback_guard, true) end
   -- A one-slot budget must not let a recurring policy starve a warned crisis.
   local reserve_crisis = not recovering and pending_crisis and campaign_month >= pending_crisis.due
+  local policy_tried = false
   if not reserve_crisis or event_budget - events_used >= 2 then
     deliver("policy", apply_policy, true)
+    policy_tried = true
   end
   if recovering then
     if pending_crisis then add_log("Crisis postponed during recovery") end
@@ -821,6 +827,8 @@ local function new_month()
         recovery_until = campaign_month + 1
       end
     end
+    -- A reserved crisis that could not change anything must not starve the policy.
+    if not policy_tried and pending_crisis then deliver("policy", apply_policy, true) end
     -- No additional hostile events in the month a warned crisis lands.
     if recovery_until < campaign_month then
       offer("economy", 35 + pressure * 4, mutate_enemy_economy, doctrine == "hoarder")

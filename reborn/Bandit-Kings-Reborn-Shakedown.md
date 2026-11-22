@@ -2,7 +2,7 @@
 
 ## Already verified
 
-- 68 Lua regression checks pass across Lua 5.1/5.4.
+- 68 Lua regression checks pass across Lua 5.1/5.4 (0.3; 74 in 0.4).
 - Real Mesen 0.9.8 demo: 2,400 frames, 19 simulated months, zero Lua game-memory writes, zero text-drawing errors.
 - Captured compact/history display fits the NES screen.
 

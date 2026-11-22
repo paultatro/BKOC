@@ -139,7 +139,8 @@ local function tick()
   elseif frame > CONFIG.frames_to_ignore_after_load then
     scan()
   end
-  if frame % 10 == 0 then draw() end
+  -- Mesen drawings last one frame, so redraw every frame.
+  draw()
 end
 
 emu.addEventCallback(tick, emu.eventType.startFrame)

@@ -8,6 +8,7 @@ test_drawing_failure_does_not_stop_director (__main__.DirectorLua51Tests.test_dr
 test_dry_run_chains_without_touching_ram (__main__.DirectorLua51Tests.test_dry_run_chains_without_touching_ram) ... ok
 test_dry_shadow_expires_each_month (__main__.DirectorLua51Tests.test_dry_shadow_expires_each_month) ... ok
 test_hard_cap_includes_twists_habits_and_policy (__main__.DirectorLua51Tests.test_hard_cap_includes_twists_habits_and_policy) ... ok
+test_helper_overlays_draw_every_frame (__main__.DirectorLua51Tests.test_helper_overlays_draw_every_frame) ... ok
 test_incomplete_tables_and_ambiguous_settings_rejected (__main__.DirectorLua51Tests.test_incomplete_tables_and_ambiguous_settings_rejected) ... ok
 test_invalid_and_overlapping_addresses_rejected (__main__.DirectorLua51Tests.test_invalid_and_overlapping_addresses_rejected) ... ok
 test_invalid_strides_and_names_rejected (__main__.DirectorLua51Tests.test_invalid_strides_and_names_rejected) ... ok
@@ -20,6 +21,7 @@ test_noops_do_not_consume_budget (__main__.DirectorLua51Tests.test_noops_do_not_
 test_one_slot_budget_does_not_starve_crisis_for_policy (__main__.DirectorLua51Tests.test_one_slot_budget_does_not_starve_crisis_for_policy) ... ok
 test_other_policies_and_goodwill_have_exact_costs (__main__.DirectorLua51Tests.test_other_policies_and_goodwill_have_exact_costs) ... ok
 test_overlay_draws_every_frame_with_honest_mode (__main__.DirectorLua51Tests.test_overlay_draws_every_frame_with_honest_mode) ... ok
+test_owner_table_honored_without_player_owner (__main__.DirectorLua51Tests.test_owner_table_honored_without_player_owner) ... ok
 test_ownership_blocks_player_neutral_and_captured_rows (__main__.DirectorLua51Tests.test_ownership_blocks_player_neutral_and_captured_rows) ... ok
 test_paid_preparation_mitigates_crisis (__main__.DirectorLua51Tests.test_paid_preparation_mitigates_crisis) ... ok
 test_policy_never_charges_if_unaffordable_capped_or_unmapped (__main__.DirectorLua51Tests.test_policy_never_charges_if_unaffordable_capped_or_unmapped) ... ok
@@ -30,6 +32,7 @@ test_reset_does_not_treat_loaded_month_as_event (__main__.DirectorLua51Tests.tes
 test_rng_matches_between_lua_versions (__main__.DirectorLua51Tests.test_rng_matches_between_lua_versions) ... ok
 test_single_event_budget_is_respected (__main__.DirectorLua51Tests.test_single_event_budget_is_respected) ... ok
 test_threat_stays_due_without_delivery (__main__.DirectorLua51Tests.test_threat_stays_due_without_delivery) ... ok
+test_unresolvable_crisis_does_not_starve_policy (__main__.DirectorLua51Tests.test_unresolvable_crisis_does_not_starve_policy) ... ok
 test_zero_based_calendar_wrap (__main__.DirectorLua51Tests.test_zero_based_calendar_wrap) ... ok
 test_zero_budget_delivers_no_events (__main__.DirectorLua51Tests.test_zero_budget_delivers_no_events) ... ok
 test_all_scripts_load_on_both_api_shapes (__main__.DirectorTests.test_all_scripts_load_on_both_api_shapes) ... ok
@@ -42,6 +45,7 @@ test_drawing_failure_does_not_stop_director (__main__.DirectorTests.test_drawing
 test_dry_run_chains_without_touching_ram (__main__.DirectorTests.test_dry_run_chains_without_touching_ram) ... ok
 test_dry_shadow_expires_each_month (__main__.DirectorTests.test_dry_shadow_expires_each_month) ... ok
 test_hard_cap_includes_twists_habits_and_policy (__main__.DirectorTests.test_hard_cap_includes_twists_habits_and_policy) ... ok
+test_helper_overlays_draw_every_frame (__main__.DirectorTests.test_helper_overlays_draw_every_frame) ... ok
 test_incomplete_tables_and_ambiguous_settings_rejected (__main__.DirectorTests.test_incomplete_tables_and_ambiguous_settings_rejected) ... ok
 test_invalid_and_overlapping_addresses_rejected (__main__.DirectorTests.test_invalid_and_overlapping_addresses_rejected) ... ok
 test_invalid_strides_and_names_rejected (__main__.DirectorTests.test_invalid_strides_and_names_rejected) ... ok
@@ -54,6 +58,7 @@ test_noops_do_not_consume_budget (__main__.DirectorTests.test_noops_do_not_consu
 test_one_slot_budget_does_not_starve_crisis_for_policy (__main__.DirectorTests.test_one_slot_budget_does_not_starve_crisis_for_policy) ... ok
 test_other_policies_and_goodwill_have_exact_costs (__main__.DirectorTests.test_other_policies_and_goodwill_have_exact_costs) ... ok
 test_overlay_draws_every_frame_with_honest_mode (__main__.DirectorTests.test_overlay_draws_every_frame_with_honest_mode) ... ok
+test_owner_table_honored_without_player_owner (__main__.DirectorTests.test_owner_table_honored_without_player_owner) ... ok
 test_ownership_blocks_player_neutral_and_captured_rows (__main__.DirectorTests.test_ownership_blocks_player_neutral_and_captured_rows) ... ok
 test_paid_preparation_mitigates_crisis (__main__.DirectorTests.test_paid_preparation_mitigates_crisis) ... ok
 test_policy_never_charges_if_unaffordable_capped_or_unmapped (__main__.DirectorTests.test_policy_never_charges_if_unaffordable_capped_or_unmapped) ... ok
@@ -64,10 +69,11 @@ test_reset_does_not_treat_loaded_month_as_event (__main__.DirectorTests.test_res
 test_rng_matches_between_lua_versions (__main__.DirectorTests.test_rng_matches_between_lua_versions) ... ok
 test_single_event_budget_is_respected (__main__.DirectorTests.test_single_event_budget_is_respected) ... ok
 test_threat_stays_due_without_delivery (__main__.DirectorTests.test_threat_stays_due_without_delivery) ... ok
+test_unresolvable_crisis_does_not_starve_policy (__main__.DirectorTests.test_unresolvable_crisis_does_not_starve_policy) ... ok
 test_zero_based_calendar_wrap (__main__.DirectorTests.test_zero_based_calendar_wrap) ... ok
 test_zero_budget_delivers_no_events (__main__.DirectorTests.test_zero_budget_delivers_no_events) ... ok
 
 ----------------------------------------------------------------------
-Ran 68 tests in 0.412s
+Ran 74 tests in 0.727s
 
 OK

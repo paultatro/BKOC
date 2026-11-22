@@ -1,4 +1,4 @@
-# Troubleshooting — 0.3
+# Troubleshooting — 0.4
 
 **MAP REQUIRED / no events:** The live map is empty by default. Use the demo for an immediate preview, or calibrate the real map. Do not borrow demo addresses.
 
@@ -19,3 +19,5 @@
 **The panel covers something:** O hides it; H closes the expanded journal. Events continue while it is hidden.
 
 **Configuration error at startup:** Read the named field in the script log. All booleans must be actual true/false values; tables need a start/count pair and positive stride; addresses cannot overlap; key names must be distinct; only supported unsigned-byte RAM addresses are accepted.
+
+**Controls do nothing (title screen plays, buttons dead):** Click once on the game picture. While the Script Window or any other window has focus, Mesen sends no buttons to the game, because Background Input is off by default. None of these scripts override controller input. If it still happens without any script running, load the untouched original ROM in the same Mesen. If that works but a shuffled ROM doesn't, report it with the ROM's seed and options.

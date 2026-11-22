@@ -91,13 +91,14 @@ local function top_changes(limit)
   return out
 end
 
+local cached_rows = {}
+
 local function draw()
-  safe_draw_rectangle(0, 0, 256, 49, 0x7F000000, true)
+  safe_draw_rectangle(0, 0, 256, 58, 0x7F000000, true)
   safe_draw_string(4, 4, "Bandit Kings Memory Scout", 0xFFFFFF, 0x000000)
   safe_draw_string(4, 14, frozen and "PAUSED - reload to resume" or "Change one stat/menu value at a time", 0xFFFF66, 0x000000)
 
-  local rows = top_changes(4)
-  for i, text in ipairs(rows) do
+  for i, text in ipairs(cached_rows) do
     safe_draw_string(4, 16 + i * 8, text, 0x99FF99, 0x000000)
   end
 end
@@ -105,7 +106,9 @@ end
 local function tick()
   frame = frame + 1
   scan()
-  if frame % 10 == 0 then draw() end
+  -- Mesen drawings last one frame: draw every frame, re-rank every 10th.
+  if frame % 10 == 0 then cached_rows = top_changes(4) end
+  draw()
 end
 
 local function dump()

@@ -1,4 +1,4 @@
-# Event catalog — version 0.3
+# Event catalog — version 0.4
 
 All events operate on configured one-byte values. None discovers addresses or rewrites game AI.
 

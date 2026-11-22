@@ -1,4 +1,4 @@
-# Mod kit — Council and Chronicle 0.3
+# Mod kit — Council and Chronicle 0.4
 
 This kit adds a Lua campaign director beside Bandit Kings of Ancient China in Mesen. Its interface and fake-memory demo work now. Its live game effects require a calibrated address map.
 
