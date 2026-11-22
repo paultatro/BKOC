@@ -1,0 +1,27 @@
+# SHA-256 checksums — 0.3
+
+| File | SHA-256 |
+| --- | --- |
+| `bandit-kings-address-lab.lua` | `c3e7dd86b83669484b577e9a89d799152108d15a974699608ca717bd05aa87c1` |
+| `Bandit-Kings-Address-Map-Template.lua` | `d5cdcb40380aa72a781d5811e242425cc1cb3642a69f80699be5baf592d7e21e` |
+| `Bandit-Kings-Calibration-Worksheet.md` | `265a9960a832636cc6e9e2ab23a8aa6a7b412fafcaea4aae2dae45a3dec51c35` |
+| `bandit-kings-memory-scout.lua` | `a86fbac7fee7b73484d99f99d6c06b4bd07cb8820d9750e740f6a0c9c9a8b1fd` |
+| `bandit-kings-reborn-demo.lua` | `5d74c59700c715d23437d385be07c4d3f5358e742986d959d0185fbcfc065331` |
+| `bandit-kings-reborn-director.lua` | `ef8696966e784548dd47c2aad487f1d3720c3dc58bcf13b928519af52481515b` |
+| `Bandit-Kings-Reborn-Event-Catalog.md` | `3c1f70d01cf5ecc5318da194b0d74c6404225cf18cb374209fba60ad98de12cb` |
+| `Bandit-Kings-Reborn-Live-Test-Report.md` | `e65f12bab05c7fde297d792d02dc8653f33283a32b1bc3564b0d0505b0d7ee33` |
+| `Bandit-Kings-Reborn-MANIFEST.md` | `41c8dcb0bef0b870a9ee0b9d38fd44ceafb7028c457aef68c8b6fe0d0fa5c8e9` |
+| `Bandit-Kings-Reborn-Mod-Kit.md` | `1eb32ee9f7b1453a0f9c89211936643461352c97218cbcfa7a79fc700b9d6572` |
+| `Bandit-Kings-Reborn-Profiles.md` | `4454a054940b63a3c2c1362b995c7bd56466e7dca49393fdfbd98c12e825da22` |
+| `Bandit-Kings-Reborn-RELEASE-NOTES.md` | `fd941a95001469b7018361327774bf798298a909348505330bc71a59d3c5ba32` |
+| `Bandit-Kings-Reborn-Review.md` | `f59ab3d6117c210d23b5a87b8e84de20cba17aa8f81162c43f00ece2016056e8` |
+| `Bandit-Kings-Reborn-Runbook.md` | `b8fdababd5a14a34982cac4055b34606be349c5540e27dd5e50dfdfb00a8c90f` |
+| `Bandit-Kings-Reborn-Shakedown.md` | `27a46669e46f2bf1a77797cc7ea10566a50e5914dbd82d972d61422ef7e5bc8d` |
+| `Bandit-Kings-Reborn-Troubleshooting.md` | `c4243a1c42943c2bb2cef5f29965c91b4605e8dafbd639c87d9bfa3a637a2f7e` |
+| `bandit-kings-write-trace.lua` | `9ce0705a7959fd04702c0ca4755c6adc35b35371ecedb7c3a09b6f7c47883372` |
+| `DEMO-chronicle.png` | `be0632aeda571f9141f4e8e5675c0493413c5daca01220193b58dbe857f6158e` |
+| `DEMO-recovery.png` | `c810e93fe3a988a47c68c61fdff8642d9fb0f75e03b504c5027ff2396390e8de` |
+| `Lua-test-results.txt` | `df8c1f48c6d0df430e537d99b537d99aeb556102f52bd9835b9917f7d7ed9dce` |
+| `Mesen-smoke-result.txt` | `5239a811cae4af654ff7a3a0f473f0968b474f2de8d6a20324ad7286a17c54da` |
+| `START-HERE-Bandit-Kings-Reborn.md` | `e5a41d02a84e55c2f4fb702d7586a5a1d3059aa1d569157a87be36e6ac0ff09f` |
+| `verify-bandit-kings.py` | `407fbc57cd8c9390a34d8ef1a56696e11a8f83eed7ed93385ceaea1a3c20aa4d` |

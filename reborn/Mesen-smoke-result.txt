@@ -1,0 +1,60 @@
+passed=true
+frames=2400
+months=19
+real_writes=0
+draw_calls=32137
+draw_errors=0
+M000 [DEMO] Self-test memory map enabled
+M001 [DEMO] New campaign twist: thin_harvest
+M001 [DEMO] Nemesis rival rises at table slot 3
+M001 [DEMO] Raider commanders drill harder +8
+M001 [DEMO] Hoarder rivals stockpile supplies +5
+M002 [DEMO] Nemesis rival sharpens at slot 3
+M002 [DEMO] A quiet coalition shares men and coin
+M003 [DEMO] Stores: paid 6, gained 10
+M003 [DEMO] Granary rot spreads food -8
+M003 [DEMO] Hoarder rivals stockpile supplies +5
+M003 [DEMO] Famine next month: provision helps
+M004 [DEMO] Stores: paid 6, gained 10
+M004 [DEMO] Famine bites through stores -6
+M005 [DEMO] Stores: paid 6, gained 10
+M006 [DEMO] Stores: paid 6, gained 10
+M006 [DEMO] Granary rot spreads food -7
+M006 [DEMO] Hoarder rivals stockpile supplies +5
+M007 [DEMO] New campaign twist: mandate_drift
+M007 [DEMO] Stores: paid 6, gained 10
+M007 [DEMO] Nemesis rival sharpens at slot 3
+M007 [DEMO] Conspirators poison court trust -4
+M007 [DEMO] Unrest next month: patronage helps
+M008 [DEMO] Stores: paid 6, gained 10
+M008 [DEMO] Bad omens unsettle the people
+M009 [DEMO] Nemesis rival rises at table slot 4
+M009 [DEMO] Relief: paid 8, gained 4
+M010 [DEMO] Relief: paid 8, gained 4
+M010 [DEMO] A quiet coalition shares men and coin
+M010 [DEMO] Rumors erode public trust
+M011 [DEMO] Relief: paid 8, gained 4
+M011 [DEMO] Hoarder rivals stockpile supplies +5
+M011 [DEMO] Unrest next month: patronage helps
+M012 [DEMO] Relief: paid 8, gained 4
+M012 [DEMO] Bad omens unsettle the people
+M013 [DEMO] New campaign twist: court_fever
+M013 [DEMO] Drill: paid 5, gained 4
+M014 [DEMO] Drill: paid 5, gained 4
+M014 [DEMO] Raider commanders drill harder +7
+M014 [DEMO] Nemesis rival sharpens at slot 4
+M015 [DEMO] Drill: paid 5, gained 4
+M015 [DEMO] Corrupt stewards skim gold -8
+M015 [DEMO] Rival levy next month: prepare
+M016 [DEMO] Drill: paid 5, gained 4
+M016 [DEMO] Emergency levies swell rival armies +5
+M017 [DEMO] Nemesis rival rises at table slot 6
+M017 [DEMO] Drill: paid 5, gained 4
+M018 [DEMO] Drill: paid 5, gained 4
+M018 [DEMO] A quiet coalition shares men and coin
+M018 [DEMO] Veterans desert quiet drills
+M019 [DEMO] New campaign twist: bandit_surge
+M019 [DEMO] Drill: paid 5, gained 4
+M019 [DEMO] Nemesis rival sharpens at slot 6
+M019 [DEMO] Raider commanders drill harder +11
+M019 [DEMO] Rival levy next month: prepare
